@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     end
   end
   resources :users, except: [:show]
-  resources :reservations
-  resources :oweners, only: [:show]
+  resources :reservations, only: [:show, :destroy]
+  resources :owners, only: [:show]
   resources :clients, only: [:show]
 
   namespace :admin do

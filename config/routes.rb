@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   resources :spaces, only: [] do
     collection do
       get :search
+      get :reserve
     end
   end
   resources :users, except: [:show]
-  resources :reservations, only: [:show, :destroy]
+  resources :reservations, only: [:new, :create, :show, :destroy]
   resources :owners, only: [:show]
   resources :clients, only: [:show]
 

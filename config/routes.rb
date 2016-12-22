@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get :reserve
     end
   end
-  resources :users, except: [:show]
+  resources :users, except: [:index, :show]
   resources :reservations, only: [:new, :create, :show, :destroy]
   resources :owners, only: [:show]
   resources :clients, only: [:show]

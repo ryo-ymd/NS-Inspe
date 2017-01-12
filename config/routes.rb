@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post :login, controller: :session
   post :logout, controller: :session
 
-  resources :spaces, only: [] do
+  resources :spaces, only: [:index] do
     collection do
       get :search
       get :reserve

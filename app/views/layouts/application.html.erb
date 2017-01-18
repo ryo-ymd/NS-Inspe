@@ -16,15 +16,22 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <<li><a href="#">スペース一覧</a></li>
+          <li><%= link_to 'スペース一覧', spaces_path %></li>
           <li><a href="#">利用規約</a></li>
-          <button type="button" class="btn btn-default navbar-btn">Sign In</button>
-          <button type="button" class="btn btn-primary navbar-btn">Sign Up</button>
+          <%= link_to login_path do %>
+            <button type="button" class="btn btn-default navbar-btn">LogIn</button>
+          <% end %>
+          <%= link_to sign_up_path do %>
+            <button type="button" class="btn btn-primary navbar-btn">Sign Up</button>
+          <% end %>
         </ul>
       </div>
     </div>
   </nav>
   <div class="container">
+    <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
     <%= yield %>
   </div>
   </body>

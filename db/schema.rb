@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106154104) do
+ActiveRecord::Schema.define(version: 20170112070143) do
 
   create_table "options", force: :cascade do |t|
     t.string   "option_name",                    null: false
@@ -60,6 +60,10 @@ ActiveRecord::Schema.define(version: 20170106154104) do
     t.boolean  "authorize",           default: true, null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

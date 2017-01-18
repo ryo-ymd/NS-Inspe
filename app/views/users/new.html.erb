@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>ユーザー登録</h1>
+    <%= form_for @user do |f| %>
+        <%= render 'shared/error_message' %>
+        <%= f.label 'メールアドレス' %>
+        <%= f.email_field :mail, class: 'form-control' %>
+        <br>
+        <%= f.label '表示名' %>
+        <%= f.text_field :name, class: 'form-control' %>
+        <br>
+        <%= f.label 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+        <br>
+        <%= f.label '登録種別' %>
+        <%= f.select :member_type, { '借り手': :client, '貸し手': :owner}, {}, class: 'form-control' %>
+        <br>
+        <%= f.submit 'ユーザー登録', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

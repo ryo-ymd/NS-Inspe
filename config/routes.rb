@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#top'
 
-  post :login, controller: :session
-  post :logout, controller: :session
+  get :sign_up, to: 'users#new'
+  get :login, to: 'sessions#new'
+  post :login, to: 'sessions#create'
+  delete :logout, to: 'sessions#destroy'
 
   resources :spaces, only: [:index] do
     collection do
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
       get :reserve
     end
   end
-  resources :users, except: [:index, :show]
+  resources :users, except: [:index]
   resources :reservations, only: [:new, :create, :show, :destroy]
   resources :owners, only: [:show]
   resources :clients, only: [:show]

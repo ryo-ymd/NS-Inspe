@@ -1,1 +1,5 @@
 <h1>トップだよ！！！！</h1>
+<% if logged_in? %>
+    <p>ログインしてるよ</p>
+    <%= link_to 'ログアウト', logout_path, method: :delete %>
+<% end %>

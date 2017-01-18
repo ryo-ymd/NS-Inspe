@@ -6,7 +6,7 @@ class CreateOptions < ActiveRecord::Migration
       t.string :count, null: false, default: 1
       t.integer :charge, null: false, default: 0
       t.string :remark
-      t.references :space, foreign_key: true
+      t.references :spaces, foreign_key: true
       t.timestamps null: false
     end
   end

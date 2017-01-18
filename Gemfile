@@ -51,3 +51,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
+gem 'bcrypt'
+gem 'paperclip'
+gem 'pry'
+gem 'pry-doc'

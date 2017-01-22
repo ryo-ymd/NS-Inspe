@@ -13,21 +13,21 @@
 ActiveRecord::Schema.define(version: 20170112070143) do
 
   create_table "options", force: :cascade do |t|
-    t.string   "option_name",                    null: false
-    t.boolean  "standard_option", default: true, null: false
-    t.string   "count",           default: "1",  null: false
-    t.integer  "charge",          default: 0,    null: false
+    t.string   "option_name",                     null: false
+    t.boolean  "standard_option", default: false
+    t.string   "count",           default: "1",   null: false
+    t.integer  "charge",          default: 0,     null: false
     t.string   "remark"
     t.integer  "space_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "reservations", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "start_time_block", null: false
-    t.string   "end_time_block",   null: false
-    t.string   "block_modify",     null: false
+    t.integer  "start_time_block", null: false
+    t.integer  "end_time_block",   null: false
+    t.string   "block_modify"
     t.integer  "space_id"
     t.date     "date",             null: false
     t.datetime "created_at",       null: false
@@ -42,24 +42,23 @@ ActiveRecord::Schema.define(version: 20170112070143) do
 
   create_table "spaces", force: :cascade do |t|
     t.string   "name",                               null: false
-    t.integer  "prefecture_code",                    null: false
     t.string   "address",                            null: false
     t.string   "mail_address"
     t.string   "tel"
     t.integer  "member_limit",                       null: false
     t.integer  "charge",                             null: false
-    t.string   "min_time_block"
-    t.string   "max_time_block"
-    t.string   "start_time_block"
-    t.string   "finish_time_block"
+    t.integer  "min_time_block",      default: 0
+    t.integer  "max_time_block",      default: 0
+    t.integer  "start_time_block",    default: 0
+    t.integer  "finish_time_block",   default: 0
     t.string   "description"
     t.integer  "cancellation_charge", default: 0
     t.integer  "space_type",                         null: false
-    t.integer  "owner_id_id"
     t.boolean  "visible",             default: true, null: false
-    t.boolean  "authorize",           default: true, null: false
+    t.boolean  "authorized",          default: true, null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "user_id"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -71,8 +70,7 @@ ActiveRecord::Schema.define(version: 20170112070143) do
     t.string   "name",                            null: false
     t.integer  "member_type",                     null: false
     t.string   "password_digest",                 null: false
-    t.string   "image"
-    t.boolean  "admin",           default: false, null: false
+    t.boolean  "admin",           default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end

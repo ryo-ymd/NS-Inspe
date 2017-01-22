@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>スペース新規登録</h1>
+    <%= nested_form_for @space do |f| %>
+        <%= render 'shared/error_message', target: @space %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="row">
+          <div class="col-md-5">
+            <%= f.label 'スペースの名前' %>
+            <%= f.text_field :name, class: 'form-control' %>
+            <br>
+            <%= f.label '住所' %>
+            <%= f.text_field :address, class: 'form-control' %>
+          </div>
+          <div class="col-md-7">
+            <%= f.label 'スペースの説明' %>
+            <%= f.text_area :description, size: '20x5', class: 'form-control' %>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-md-3">
+            <%= f.label '連絡先(電話)' %>
+            <%= f.text_field :tel, class: 'form-control' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label '連絡先(メール)' %>
+            <%= f.text_field :mail_address, class: 'form-control' %>
+          </div>
+          <div class="col-md-6">
+            <div class="field">
+              <%= f.label '添付画像' %>
+              <%= f.file_field :photo, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-3">
+            <%= f.label '値段(30分あたり)' %>
+            <%= f.number_field :charge, class: 'form-control' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label 'キャンセル料金' %>
+            <%= f.number_field :cancellation_charge, class: 'form-control' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label '最大収容人数' %>
+            <%= f.number_field :member_limit, class: 'form-control' %>
+          </div>
+          <div class="col-md-3">
+            <%= f.label 'タイプ' %>
+            <%= f.select :space_type, [['会議室', 0], ['スタジオ', 1], ['ホール', 2]], {}, class: 'form-control'  %>
+          </div>
+        </div>
+        <br>
+        <% f.fields_for :options do |option| %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <%= option.label '備品名' %>
+                      <%= option.text_field :option_name, class: 'form-control' %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= option.label '値段(30分あたり)' %>
+                      <%= option.number_field :charge, class: 'form-control' %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= option.label '個数' %>
+                      <%= option.number_field :count, class: 'form-control' %>
+                    </div>
+                  </div>
+                  <%= option.hidden_field :space_id, value: @space.id %>
+                  <br>
+                  <%= option.link_to_remove '備品の削除', class: 'btn btn-warning' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= f.link_to_add '備品を追加する', :options, class: 'btn btn-default' %>
+        <br>
+        <br>
+        <%= f.submit '登録', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

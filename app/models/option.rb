@@ -1,5 +1,6 @@
 class Option < ActiveRecord::Base
-  belongs_to :space, class_name: 'Space', foreign_key: :space_id
+  belongs_to :space
+  validates :space, presence: true
 
   # validates :option_id, numericality: { only_integer: true }
   # validates :name, presence: true

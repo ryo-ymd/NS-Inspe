@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>予約</h1>
+    <%= form_for @reservation do |f| %>
+        <%= render 'shared/error_message',target: @reservation %>
+
+        <%= f.label '日付' %>
+        <%= f.date_select :date, {}, class: 'form-control' %>
+        <%= f.hidden_field :space_id, value: @reservation.space_id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.label '開始時間' %>
+            <%= f.select :start_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+          </div>
+          <div class="col-md-6">
+            <%= f.label '終了時間' %>
+            <%= f.select :end_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+          </div>
+        </div>
+        <br>
+
+        <%= f.submit '予約', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

@@ -1,1 +1,4 @@
 <h1>スペースの一覧</h1>
+<% @spaces.each do |space| %>
+    <%= render 'shared/space_index', space: space %>
+<% end %>

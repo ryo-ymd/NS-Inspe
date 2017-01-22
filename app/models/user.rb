@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
   validates :name, length: { maximum: 20 }
   validates :password, presence: { on: :create },
             confirmation: { allow_blank: true }
-
-  attr_accessor :password
-
   private
 
 

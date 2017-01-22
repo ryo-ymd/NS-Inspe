@@ -14,4 +14,8 @@ class Reservation < ActiveRecord::Base
   #     errors.add(:date, ": 過去の日付は使用できません")
   #   end
   # end
+
+  def self.time_block_text(number)
+    "#{number / 2}:#{number % 2 == 0 ? '00' : '30'}"
+  end
 end

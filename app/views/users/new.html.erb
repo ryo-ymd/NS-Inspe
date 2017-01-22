@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <h1>ユーザー登録</h1>
     <%= form_for @user do |f| %>
-        <%= render 'shared/error_message' %>
+        <%= render 'shared/error_message',target: @user %>
         <%= f.label 'メールアドレス' %>
         <%= f.email_field :mail, class: 'form-control' %>
         <br>

@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-4">
+    <% if @space.photo.present? %>
+        <%= image_tag @space.photo.url(:midium) %>
+    <% else %>
+        <%= image_tag 'missing_photo.png' %>
+    <% end %>
+  </div>
+  <div class="col-md-8">
+    <h1><%= @space.name %></h1>
+    <p><%= @space.description %></p>
+    <table class="table">
+      <tr>
+        <th>値段(/30min)</th>
+        <th>人数制限</th>
+        <th>タイプ</th>
+        <th>住所</th>
+      </tr>
+      <tr>
+        <td><%= @space.charge %>円</td>
+        <td><%= @space.member_limit %></td>
+        <td><%= @space.space_type_text %></td>
+        <td><%= @space.address %></td>
+      </tr>
+      <tr>
+        <th>キャンセル料</th>
+        <th>連絡先</th>
+        <th>登録者</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td><%= @space.cancellation_charge %>円</td>
+        <td><%= @space.tel.present? ? @space.tel : @space.mail_address %></td>
+        <td><%= @space.user.name %></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<br>
+<% unless @space.options.blank? %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table">
+          <tr>
+            <th>備品名</th>
+            <th>値段(/30min)</th>
+            <th>個数</th>
+          </tr>
+          <% @space.options.each do |option| %>
+              <%= render 'spaces/option', option: option %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+<% end %>
+
+<h4>スペース使用状況</h4>
+<p>「○」になっている所をクリックすることで、予約が行えます。</p>
+<div class="row">
+  <table class="table">
+    <tr>
+      <th class="text-center">時間</th>
+      <% 7.times do |day| %>
+          <th class="text-center"><%= (Time.now + day.day).strftime('%m/%d') %></th>
+      <% end %>
+    </tr>
+    <% 48.times do |time| %>
+        <tr>
+          <th><%= Reservation.time_block_text(time) %>~</th>
+          <% 7.times do |day| %>
+            <td class="text-center"><%= @available_list[day][time] ? link_to('○' , new_reservation_path(space: @space.id, start: time, date: Time.now + day.day)) : '×' %></td>
+          <% end %>
+        </tr>
+    <% end %>
+  </table>
+
+</div>

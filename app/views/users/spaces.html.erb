@@ -1,0 +1,23 @@
+<%= render 'users/header', user: @user %>
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>あなたの登録しているスペース</h3>
+    <% @spaces.each do |space| %>
+        <div class="column">
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">操作</h3>
+              </div>
+              <div class="panel-body text-center">
+                <button type="button" class="btn btn-primary navbar-btn">公開設定</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <%= render 'shared/space_index', space: space %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

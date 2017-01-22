@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= space.name %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <% if space.photo.present? %>
+            <%= image_tag space.photo.url(:thumb), width: '150px' %>
+          <% else %>
+            <%= image_tag 'missing_thumb.png' %>
+          <% end %>
+        </a>
+        <div class="text-center">
+          <%= link_to space_path space do %>
+            <button type="button" class="btn btn-primary navbar-btn">詳細を見る</button>
+          <% end %>
+        </div>
+      </div>
+      <div class="media-body">
+        <p><%= space.description %></p>
+        <table class="table">
+          <tr>
+            <th>値段(/30min)</th>
+            <th>人数制限</th>
+            <th>タイプ</th>
+            <th>住所</th>
+          </tr>
+          <tr>
+            <td><%= space.charge %></td>
+            <td><%= space.member_limit %></td>
+            <td><%= space.space_type_text %></td>
+            <td><%= space.address %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,16 +7,21 @@ Rails.application.routes.draw do
   post :login, to: 'sessions#create'
   delete :logout, to: 'sessions#destroy'
 
-  resources :spaces, only: [:index] do
+  resources :spaces do
     collection do
       get :search
       get :reserve
     end
   end
-  resources :users, except: [:index]
+  resources :users, except: [:index] do
+    member do
+      get :spaces
+      get :reservations
+    end
+  end
   resources :reservations, only: [:new, :create, :show, :destroy]
-  resources :owners, only: [:show]
-  resources :clients, only: [:show]
+  resources :owners, only: [:index]
+  resources :clients, only: [:index]
 
   namespace :admin do
     resources :users, only: [:index, :update, :destroy]

@@ -1,0 +1,20 @@
+<%= render 'users/header', user: @user, params: params %>
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>あなたのアカウント情報</h3>
+    <table class="table table-bordered table-hover">
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= @user.mail %></td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th>アカウントタイプ</th>
+        <td><%= @user.member_type %></td>
+      </tr>
+    </table>
+  </div>
+</div>

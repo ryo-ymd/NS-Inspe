@@ -1,4 +1,5 @@
 class OwnersController < ApplicationController
-  def show
+  def index
+    @spaces = Space.where()
   end
 end

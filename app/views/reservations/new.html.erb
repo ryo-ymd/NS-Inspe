@@ -3,24 +3,57 @@
     <h1>予約</h1>
     <%= form_for @reservation do |f| %>
         <%= render 'shared/error_message',target: @reservation %>
-
-        <%= f.label '日付' %>
-        <%= f.date_select :date, {}, class: 'form-control' %>
-        <%= f.hidden_field :space_id, value: @reservation.space_id %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <br>
+        <h3>日付</h3>
         <div class="row">
-          <div class="col-md-6">
-            <%= f.label '開始時間' %>
-            <%= f.select :start_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+          <div class="col-md-8">
+            <%= f.label '日付' %>
+            <%= f.date_select :date, {}, class: 'form-control' %>
+            <%= f.hidden_field :space_id, value: @reservation.space_id %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.label '開始時間' %>
+                <%= f.select :start_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label '終了時間' %>
+                <%= f.select :end_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+              </div>
+            </div>
+            <br>
           </div>
-          <div class="col-md-6">
-            <%= f.label '終了時間' %>
-            <%= f.select :end_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
+          <div class="col-md-4">
+            <h3>スペース値段</h3>
+            <p>30分あたり <%= @reservation.space.charge %>円</p>
+            <%= f.submit '金額を計算する', name: 'calc', class: 'btn btn-primary' %>
+            <h3>合計: <%= @charge + @option_charge %>円</h3>
+            <h4>スペース代: <%= @charge %>円</h4>
+            <h4>オプション代: <%= @option_charge %>円</h4>
           </div>
         </div>
+        <h3>備品</h3>
+        <% unless @reservation.space.options.blank? %>
+          <table class="table">
+            <tr>
+              <th>予約</th>
+              <th>備品名</th>
+              <th>値段(/30min)</th>
+              <th>個数</th>
+            </tr>
+            <%= f.fields_for :option do |o| %>
+              <% @reservation.space.options.each do |option| %>
+                <tr>
+                  <td><%= o.check_box option.id, {}, true, false %></td>
+                  <td><%= option.option_name %></td>
+                  <td><%= option.charge %>円</td>
+                  <td><%= option.count %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        <% end %>
         <br>
-
         <%= f.submit '予約', class: 'btn btn-primary' %>
     <% end %>
   </div>

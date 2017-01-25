@@ -7,10 +7,11 @@ class User < ActiveRecord::Base
   has_many :spaces
 
   validates :mail, uniqueness: true, presence: true
-  validates :name, presence: true
-  validates :name, length: { maximum: 20 }
+  validates :name, presence: true,
+            length: { in: 3..15 }
   validates :password, presence: { on: :create },
-            confirmation: { allow_blank: true }
+            confirmation: { allow_blank: true },
+            length: { in: 4..12 }
   private
 
 

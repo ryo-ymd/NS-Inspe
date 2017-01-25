@@ -69,7 +69,7 @@
         <tr>
           <th><%= Reservation.time_block_text(time) %>~</th>
           <% 7.times do |day| %>
-            <td class="text-center"><%= @available_list[day][time] ? link_to('○' , new_reservation_path(space: @space.id, start: time, date: Time.now + day.day)) : '×' %></td>
+            <td class="text-center"><%= @available_list[day][time] ? current_user.client? ? link_to('○' , new_reservation_path(space: @space.id, start: time, date: Time.now + day.day)) : '○' : '×' %></td>
           <% end %>
         </tr>
     <% end %>

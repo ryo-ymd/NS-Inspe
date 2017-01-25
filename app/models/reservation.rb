@@ -1,6 +1,8 @@
 class Reservation < ActiveRecord::Base
   belongs_to :user
   belongs_to :space
+  has_many :reservation_options
+  has_many :options, through: :reservation_options
 
   # validates :reservation_id, numericality: { only_integer: true }, uniqueness: true
   # validates :member_id, numericality: { only_integer: true }, uniqueness: true

@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   resources :spaces do
     collection do
       get :search
-      get :reserve
+    end
+    member do
+      get :reservations
+    end
+    member do
+      post :toggle_visible
     end
   end
   resources :users, except: [:index] do
@@ -24,9 +29,13 @@ Rails.application.routes.draw do
   resources :clients, only: [:index]
 
   namespace :admin do
+    get :top, to: 'pages#top'
     resources :users, only: [:index, :update, :destroy]
     resources :spaces, only: [:index, :update, :destroy] do
-      post :authorize
+      member do
+        post :authorize
+        post :drop
+      end
     end
     resources :reservations, only: [:index, :update, :destroy]
   end

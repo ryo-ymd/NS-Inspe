@@ -24,17 +24,35 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update_attributes(user_params)
+      flash[:success] = '情報を変更しました！'
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    if @user.reservations.exists?
+      flash[:danger] = '予約が残っています。全てキャンセルしてから退会して下さい。'
+      render 'edit'
+    elsif @user.spaces.exists?
+      flash[:danger] = 'スペースが残っています。全てのスペースを削除してから退会して下さい。'
+      ender 'edit'
+    else
+      log_out
+      @user.destroy
+      flash[:success] = '退会に成功しました'
+      redirect_to root_url
+    end
   end
 
   def spaces
-    @spaces = Space.recent.where(user_id: params[:id]).visible
+    @spaces = Space.recent.where(user_id: params[:id])
   end
 
   def reservations
-
+    @reservations = Reservation.recent.where(user_id: params[:id])
   end
 
   private

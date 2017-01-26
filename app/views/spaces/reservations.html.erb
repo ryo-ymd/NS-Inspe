@@ -1,0 +1,45 @@
+<h3>スペースについた予約一覧</h3>
+<p>スペースについた予約を見ることが出来ます。</p>
+<%= link_to 'スペースの削除', space_path(@space), class: 'btn btn-danger', method: :delete %>
+<%= render 'shared/space_index', space: @space %>
+<% @reservations.each do |reservation| %>
+    <div class="column">
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">操作</h3>
+          </div>
+          <div class="panel-body text-center">
+            <%= link_to '予約削除', reservation_path(reservation, force: true), class: 'btn btn-primary navbar-btn', method: :delete %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= reservation.user.name %>さんの予約</h3>
+          </div>
+          <div class="panel-body">
+            <div class="media">
+              <div class="media-body">
+                <table class="table">
+                  <tr>
+                    <th>合計金額</th>
+                    <th>開始枠</th>
+                    <th>終了枠</th>
+                    <th>オプション</th>
+                  </tr>
+                  <tr>
+                    <td><%= reservation.total_charge %>円</td>
+                    <td><%= Reservation.time_block_text(reservation.start_time_block) %></td>
+                    <td><%= Reservation.time_block_text(reservation.end_time_block) %></td>
+                    <td><%= reservation.options.exists? ? 'あり' : 'なし' %></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>

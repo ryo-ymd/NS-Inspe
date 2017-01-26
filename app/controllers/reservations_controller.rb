@@ -3,6 +3,23 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
+    @reservation = Reservation.find(params[:id])
+    @reservation.destroy
+    if params[:force].present?
+      unless current_user == @reservation.space.user
+        flash[:danger] = '不正なアクセスです'
+        redirect_to root_path and return
+      end
+      flash[:success] = '予約を取り消しました。'
+      redirect_to reservations_space_path @reservation.space
+    else
+      unless current_user == @reservation.user
+        flash[:danger] = '不正なアクセスです'
+        redirect_to root_path and return
+      end
+      flash[:success] = '予約の取り消しを行いました。キャンセル料が別途発生します。'
+      redirect_to root_path
+    end
   end
 
   def new
@@ -19,11 +36,12 @@ class ReservationsController < ApplicationController
 
   def create
     @reservation = Reservation.new(reservation_params)
+    @charge = 0
+    @option_charge = 0
     if params[:calc].present?
       space = @reservation.space
       time = @reservation.end_time_block - @reservation.start_time_block + 1
       @charge = space.charge * time
-      @option_charge = 0
       options = params[:reservation][:option] || {}
       options.each do |key, value|
         @option_charge += Option.find_by(id: key).try(:charge) * time if value == 'true'

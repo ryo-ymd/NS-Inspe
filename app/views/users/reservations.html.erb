@@ -1,0 +1,74 @@
+<%= render 'users/header', user: @user %>
+<div class="tab-content">
+  <div class="tab-pane active">
+    <h3>あなたの予約一覧</h3>
+    <% @reservations.each do |reservation| %>
+        <div class="column">
+          <div class="col-md-2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">操作</h3>
+              </div>
+              <div class="panel-body text-center">
+                <%= link_to '予約取り消し', reservation_path(reservation), class: 'btn btn-primary navbar-btn', method: :delete %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= reservation.space.name %></h3>
+              </div>
+              <div class="panel-body">
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <% if reservation.space.photo.present? %>
+                          <%= image_tag reservation.space.photo.url(:thumb), width: '150px' %>
+                      <% else %>
+                          <%= image_tag 'missing_thumb.png' %>
+                      <% end %>
+                    </a>
+                    <div class="text-center">
+                      <%= link_to space_path reservation.space do %>
+                          <button type="button" class="btn btn-primary navbar-btn">詳細を見る</button>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="media-body">
+                    <p><%= reservation.space.description %></p>
+                    <table class="table">
+                      <tr>
+                        <th>値段(/30min)</th>
+                        <th>人数制限</th>
+                        <th>タイプ</th>
+                        <th>住所</th>
+                      </tr>
+                      <tr>
+                        <td><%= reservation.space.charge %>円</td>
+                        <td><%= reservation.space.member_limit %></td>
+                        <td><%= reservation.space.space_type_text %></td>
+                        <td><%= reservation.space.address %></td>
+                      </tr>
+                      <tr>
+                        <th>合計金額</th>
+                        <th>開始枠</th>
+                        <th>終了枠</th>
+                        <th>オプション</th>
+                      </tr>
+                      <tr>
+                        <td><%= reservation.total_charge %>円</td>
+                        <td><%= Reservation.time_block_text(reservation.start_time_block) %></td>
+                        <td><%= Reservation.time_block_text(reservation.end_time_block) %></td>
+                        <td><%= reservation.options.exists? ? 'あり' : 'なし' %></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

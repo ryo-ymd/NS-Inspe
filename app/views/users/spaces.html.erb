@@ -10,7 +10,9 @@
                 <h3 class="panel-title">操作</h3>
               </div>
               <div class="panel-body text-center">
-                <button type="button" class="btn btn-primary navbar-btn">公開設定</button>
+                <%= link_to '公開設定変更', toggle_visible_space_path(space), class: 'btn btn-primary navbar-btn', method: :post %>
+                <p>現在 <%= space.visible? ? '公開中' : '非公開' %></p>
+                <%= link_to '予約一覧', reservations_space_path(space), class: 'btn btn-primary navbar-btn' %>
               </div>
             </div>
           </div>

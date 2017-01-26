@@ -1,9 +1,16 @@
 <h1><%= user.name %>さんのマイページ</h1>
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation"><%= link_to 'プロフィール', user_path(user) %></li>
-  <li role="presentation"><%= link_to '登録したスペース', spaces_user_path(user) %></li>
+  <% if user.owner? %>
+    <li role="presentation"><%= link_to '登録したスペース', spaces_user_path(user) %></li>
+  <% end %>
   <% if params[:id].to_i == current_user.id %>
-      <li role="presentation"><%= link_to 'スペースの新規登録', new_space_path %></li>
+      <% if user.owner? %>
+        <li role="presentation"><%= link_to 'スペースの新規登録', new_space_path %></li>
+      <% end %>
+      <% if user.client? %>
+        <li role="presentation"><%= link_to '予約の確認', reservations_user_path(user) %></li>
+      <% end %>
       <li role="presentation"><%= link_to 'ID情報変更', edit_user_path(user) %></li>
   <% end %>
 </ul>

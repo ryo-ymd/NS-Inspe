@@ -9,8 +9,14 @@
         <li><a href="#">利用規約</a></li>
         <% if logged_in? %>
             <p class="navbar-text">ようこそ <%= current_user.name %>さん</p>
-            <%= link_to user_path current_user do %>
+            <% if current_user.admin? %>
+              <%= link_to admin_top_path do %>
+                <button type="button" class="btn btn-primary navbar-btn">管理者画面</button>
+              <% end %>
+            <% else %>
+              <%= link_to user_path current_user do %>
                 <button type="button" class="btn btn-default navbar-btn">マイページ</button>
+              <% end %>
             <% end %>
         <% else %>
             <%= link_to login_path do %>

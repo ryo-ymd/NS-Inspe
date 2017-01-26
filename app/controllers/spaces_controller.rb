@@ -1,7 +1,13 @@
 class SpacesController < ApplicationController
-  before_action :set_space, only:[:show, :edit, :update, :destroy]
+  before_action :set_space, only:[:show, :edit, :update, :destroy, :toggle_visible, :reservations]
   def index
     @spaces = Space.recent.visible
+    unless params[:q].blank?
+      @spaces = @spaces.where('name like ? or description like ? or address like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+    end
+    unless params[:num].blank?
+      @spaces = @spaces.where("member_limit #{params[:cond] == 'gt' ? '>' : '<'} ?", params[:num])
+    end
   end
 
   def show
@@ -33,9 +39,18 @@ class SpacesController < ApplicationController
   end
 
   def destroy
+    @space.destroy
+    flash[:success] = 'スペースを削除しました'
+    redirect_to root_path
   end
 
-  def search
+  def toggle_visible
+    @space.update(visible: false)
+    redirect_to @space
+  end
+
+  def reservations
+    @reservations = @space.reservations
   end
 
   private

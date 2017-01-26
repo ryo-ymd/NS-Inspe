@@ -16,7 +16,7 @@ class CreateSpaces < ActiveRecord::Migration
       t.integer :space_type, null: false
 
       t.boolean :visible, null: false, default: true
-      t.boolean :authorized, null: false, default: true
+      t.boolean :authorized, null: false, default: false
       t.timestamps null: false
 
       t.references :user, foreign_key: true

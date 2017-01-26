@@ -1,0 +1,15 @@
+<div class="panel panel-info">
+  <div class="panel-heading">絞り込み検索</div>
+  <div class="panel-body">
+    <%= form_tag spaces_path, method: :get do %>
+        <%= label_tag '検索ワード' %>
+        <%= text_field_tag :q %>
+        <br>
+        <%= label_tag '人数' %>
+        <%= number_field_tag :num %>
+        <%= select_tag :cond, options_for_select([%w(以上 gt), %w(以下 ls)]) %>
+
+        <%= submit_tag  '検索', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

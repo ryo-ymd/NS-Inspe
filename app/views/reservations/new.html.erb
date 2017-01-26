@@ -13,11 +13,11 @@
             <br>
             <div class="row">
               <div class="col-md-6">
-                <%= f.label '開始時間' %>
+                <%= f.label '開始枠' %>
                 <%= f.select :start_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
               </div>
               <div class="col-md-6">
-                <%= f.label '終了時間' %>
+                <%= f.label '終了枠' %>
                 <%= f.select :end_time_block, 48.times.map{ |i| [Reservation.time_block_text(i), i] }, {}, class: 'form-control' %>
               </div>
             </div>

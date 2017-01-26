@@ -11,11 +11,18 @@ user = User.create(
     member_type: 1,
     password: 'testtest'
 )
+user = User.create(
+    mail: 'admin@inspe.com',
+    name: 'かんりしゃ',
+    member_type: 1,
+    password: 'testtest',
+    admin: true
+)
 50.times.each do
   space = Space.new
   space.user = user
-  space.name = Yoshida::Text.sentence;
-  space.description = Yoshida::Text.sentence + Yoshida::Text.sentence;
+  space.name = Yoshida::Text.sentence[0, 15]
+  space.description = Yoshida::Text.sentence + Yoshida::Text.sentence
   space.address = Gimei.address.kanji
   space.mail_address = %w(aaaa@inspe.com bbbb@inspe.com cccc@inspe.com).sample
   space.member_limit = Random.rand(1..50)

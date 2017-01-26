@@ -50,23 +50,23 @@ ActiveRecord::Schema.define(version: 20170125190648) do
   end
 
   create_table "spaces", force: :cascade do |t|
-    t.string   "name",                               null: false
-    t.string   "address",                            null: false
+    t.string   "name",                                null: false
+    t.string   "address",                             null: false
     t.string   "mail_address"
     t.string   "tel"
-    t.integer  "member_limit",                       null: false
-    t.integer  "charge",                             null: false
+    t.integer  "member_limit",                        null: false
+    t.integer  "charge",                              null: false
     t.integer  "min_time_block",      default: 0
     t.integer  "max_time_block",      default: 0
     t.integer  "start_time_block",    default: 0
     t.integer  "finish_time_block",   default: 0
     t.string   "description"
     t.integer  "cancellation_charge", default: 0
-    t.integer  "space_type",                         null: false
-    t.boolean  "visible",             default: true, null: false
-    t.boolean  "authorized",          default: true, null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "space_type",                          null: false
+    t.boolean  "visible",             default: true,  null: false
+    t.boolean  "authorized",          default: false, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "user_id"
     t.string   "photo_file_name"
     t.string   "photo_content_type"

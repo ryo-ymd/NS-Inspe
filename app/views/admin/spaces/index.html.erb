@@ -1,0 +1,22 @@
+<h1>スペース管理</h1>
+<%= render 'admin/shared/header' %>
+<table class="table">
+  <tr>
+    <th>名前</th>
+    <th>住所</th>
+    <th>詳細</th>
+    <th>認可</th>
+    <th>強制非公開</th>
+    <th>強制削除</th>
+  </tr>
+  <% @spaces.each do |space| %>
+    <tr>
+      <td><%= space.name %></td>
+      <td><%= space.address %></td>
+      <td><%= link_to '詳細', space_path(space) %></td>
+      <td><%= space.authorized? ? '済' : link_to('認可', authorize_admin_space_path(space), method: :post) %></td>
+      <td><%= space.visible? ? link_to('非公開', drop_admin_space_path(space), method: :post) : '' %></td>
+      <td><%= link_to '削除', space_path(space), method: :delete %><td>
+    </tr>
+  <% end %>
+</table>

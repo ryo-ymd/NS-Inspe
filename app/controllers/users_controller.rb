@@ -38,7 +38,7 @@ class UsersController < ApplicationController
       render 'edit'
     elsif @user.spaces.exists?
       flash[:danger] = 'スペースが残っています。全てのスペースを削除してから退会して下さい。'
-      ender 'edit'
+      render 'edit'
     else
       log_out
       @user.destroy

@@ -1,2 +1,18 @@
 <h1>ユーザー管理</h1>
 <%= render 'admin/shared/header' %>
+<table class="table">
+  <tr>
+    <th>名前</th>
+    <th>メールアドレス</th>
+    <th>種類</th>
+    <th>削除</th>
+  </tr>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.mail %></td>
+        <td><%= user.member_type %></td>
+        <td><%= link_to '削除', user_path(user), method: :delete %></td>
+      </tr>
+  <% end %>
+</table>

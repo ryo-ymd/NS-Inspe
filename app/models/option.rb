@@ -4,7 +4,7 @@ class Option < ActiveRecord::Base
   has_many :reservations, through: :reservation_options
   validates :space, presence: true
 
-  validates :name, presence: true
+  validates :option_name, presence: true
   validates :count, numericality: { only_integer: true }
   validates :charge, numericality: { only_integer: true }
 end

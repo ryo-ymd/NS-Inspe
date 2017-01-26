@@ -1,7 +1,7 @@
 class SpacesController < ApplicationController
   before_action :set_space, only:[:show, :edit, :update, :destroy, :toggle_visible, :reservations]
   def index
-    @spaces = Space.recent.visible
+    @spaces = Space.recent.visible.where(authorized: true)
     unless params[:q].blank?
       @spaces = @spaces.where('name like ? or description like ? or address like ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
     end
